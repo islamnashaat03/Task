@@ -1,35 +1,41 @@
-$(document).ready(function(){
-  $('.img-wrapper').draggable({
-    scroll:false,
-    // snap:true,
-    containment: "#dashboard",
-    // addClasses:false,
-    // snapMode: "inner",
-    snap:true
-    // appendTo :'body'
-  });
-  $('.img-wrapper img').resizable({
-    aspectRatio: true,
-    // disabled: true
-    containment: ".boxes .box",
-    animate:true,
-    ghost:true,
-    
-  });
-  $('.boxes .box').droppable({
-    accecpt:'.img-wrapper img',
-    // classes: {
-    //   "ui-droppable-active": "ui-state-active",
-    //   "ui-droppable-hover": "ui-state-hover"
-    // },
-    // drop:function( event, ui ){
-    //   $('.boxes').forEach(box => {
-    //     box.addClass( ".ui-droppable-active" )
-    //   });
+$(document).ready(function () {
+  const fill = document.querySelector(".fill");
+  const boxes = document.querySelectorAll(".box");
 
-    // },
-    // animate:true,
-    // ghost:true,
-  });
-  
-})
+  const dragStart = function () {
+    this.className += " hold";
+    setTimeout(() => (this.className = "invisible"), 0);
+  };
+
+  const dragEnd = function () {
+    this.className = "fill";
+  };
+
+  const dragOver = function (e) {
+    e.preventDefault();
+  };
+
+  const dragEnter = function (e) {
+    e.preventDefault();
+    this.className += " hovered";
+  };
+
+  const dragLeave = function () {
+    this.className = "box";
+  };
+
+  const dragDrop = function () {
+    this.className = "box filled";
+    this.append(fill);
+  };
+
+  fill.addEventListener("dragstart", dragStart);
+  fill.addEventListener("dragend", dragEnd);
+
+  for (const box of boxes) {
+    box.addEventListener("dragenter", dragEnter);
+    box.addEventListener("dragleave", dragLeave);
+    box.addEventListener("drop", dragDrop);
+    box.addEventListener("dragover", dragOver);
+  }
+});

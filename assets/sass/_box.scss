@@ -1,0 +1,22 @@
+.box {
+  .fill {
+    background-image: url("../images/colorbar3.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    height: 100%;
+    width: 100%;
+    cursor: pointer;
+    z-index: 3;
+  }
+
+  .hold {
+    border: solid 2px #8aa4d3;
+  }
+
+  .hovered {
+    background-color: #333;
+    border-color: white;
+    border-style: dashed;
+  }
+}
